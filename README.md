@@ -1,4 +1,4 @@
-![İstinye Üniversitesi](https://unitededucation.com/_next/image?url=https%3A%2F%2Fwww.unitededucation.com%2Flinklogoch%2Fistinye-university-logo.png&w=3840&q=75)
+![İstinye Üniversitesi](https://yt3.googleusercontent.com/YDpeKKR7-EinanrvZ_61NWH3qYzm2EN_j99DFIw2QIMMFb4UgLdR9HDRbiYzwSgvdH5wLeU26w=s900-c-k-c0x00ffffff-no-rj)
 ### **PARTYVERSE: Flutter Projesi**  
 **Eğlenceye açılan kapı!**  
 ---  
