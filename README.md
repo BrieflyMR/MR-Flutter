@@ -1,6 +1,6 @@
 ### **PARTYVERSE: Flutter Projesi**  
 **Eğlenceye açılan kapı!**  
-
+![İstinye Üniversitesi](https://unitededucation.com/_next/image?url=https%3A%2F%2Fwww.unitededucation.com%2Flinklogoch%2Fistinye-university-logo.png&w=3840&q=75)
 ---  
 
 #### **Proje Hakkında**  
@@ -40,7 +40,7 @@
    ```  
 2. Proje klasörüne gidin:  
    ```bash
-   cd [proje-adı]
+   cd [Partyverse]
    ```  
 3. Gerekli paketleri yükleyin:  
    ```bash
