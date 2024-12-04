@@ -40,7 +40,7 @@
    ```  
 2. Proje klasörüne gidin:  
    ```bash
-   cd [Partyverse]
+   cd [flutter_app]
    ```  
 3. Gerekli paketleri yükleyin:  
    ```bash
