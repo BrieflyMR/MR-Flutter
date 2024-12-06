@@ -23,10 +23,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-assets:
+  assets:
     - assets/images/
     - assets/icons/
     - assets/languages/
     - assets/motions/
-    - assets/images/testresmi.jpg
-    - assets/motions/loading.json
