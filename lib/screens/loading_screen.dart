@@ -1,6 +1,7 @@
 import 'package:dotlottie_loader/dotlottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/core/constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,7 +11,7 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 250, 205),
+      backgroundColor: arkaplanRengim,
       body: SizedBox.expand(
         //width: double.infinity,
         child: Column(
@@ -18,10 +19,10 @@ class LoadingScreen extends StatelessWidget {
             // Logo bölümü
             Expanded(
               child: Container(
-                width: 150,
-                height: 150,
+                width: 500,
+                height: 500,
                 child: Image.asset(
-                  'assets/images/logo2.webp',
+                  'assets/images/logo.png',
                   fit: BoxFit.contain,
                 ),
               ),
@@ -32,7 +33,7 @@ class LoadingScreen extends StatelessWidget {
             InkWell(
               onTap: () => context.go("/home"),
               child: SizedBox(
-                width: 500,
+                width: 600,
                 child: DotLottieLoader.fromAsset("assets/motions/loading3.lottie",
                       frameBuilder: (BuildContext ctx, DotLottie? dotlottie) {
                     if (dotlottie != null) {
