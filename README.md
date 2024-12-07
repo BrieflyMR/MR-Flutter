@@ -1,4 +1,4 @@
-![İstinye Üniversitesi](https://yt3.googleusercontent.com/YDpeKKR7-EinanrvZ_61NWH3qYzm2EN_j99DFIw2QIMMFb4UgLdR9HDRbiYzwSgvdH5wLeU26w=s900-c-k-c0x00ffffff-no-rj)
+![İstinye Üniversitesi](assets/images/logo.png)
 ### **PARTYVERSE: Flutter Projesi**  
 **Eğlenceye açılan kapı!**  
 ---  
