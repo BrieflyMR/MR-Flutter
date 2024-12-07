@@ -40,7 +40,7 @@
    ```  
 2. Proje klasörüne gidin:  
    ```bash
-   cd [flutter_app]
+   cd [MR-Flutter]
    ```  
 3. Gerekli paketleri yükleyin:  
    ```bash
@@ -56,16 +56,26 @@
 #### **Proje Yapısı**  
 ```plaintext
 lib/
-├── core/    # Hafıza,tema,navigasyon
+├── core/    # Hafıza,tema,navigasyon ve yönlendirme ögeleri
 ├── screens/    # Uygulama ekranları
-├── widgets/     # Tekrar kullanılabilir arayüz öğeleri
-└── services/   # API servisleri
+├── services/     # API sevisleri
+└── widgets/   # Tekrar kullanılabilir arayüz öğeleri
 ```  
 
 ---  
 
 #### **Ekran Görüntüleri**  
-[Uygulama ekran görüntüleri buraya eklenecek]  
+![Ekran Görüntüsü 1](assets/screenshots/yüklenmeekranıresmi.png)
+![Ekran Görüntüsü 2](assets/screenshots/anasayfaresmi.png)
+![Ekran Görüntüsü 3](assets/screenshots/aramaresmi.png)
+![Ekran Görüntüsü 4](assets/screenshots/alisverisresmi.png)
+![Ekran Görüntüsü 5](assets/screenshots/bildirimresmi.png)
+![Ekran Görüntüsü 6](assets/screenshots/profilresmi.png)
+![Ekran Görüntüsü 7](assets/screenshots/yanpencereresmi.png)
+
+
+
+
 
 ---  
 
