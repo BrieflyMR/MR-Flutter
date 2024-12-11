@@ -74,6 +74,7 @@ class HomeScreen extends StatelessWidget {
               leading: const Icon(CupertinoIcons.bell),
               title: const Text('Notifications'),
               onTap: () {
+                context.go("/notifications");
                 Navigator.pop(context);
               },
             ),
