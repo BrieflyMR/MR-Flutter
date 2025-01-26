@@ -1,7 +1,9 @@
 import 'package:dotlottie_loader/dotlottie_loader.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/main.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:provider/provider.dart';
 import '../core/constants.dart';
 import '../widgets/bottom_menu.dart';
 
@@ -10,26 +12,47 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surface = lightColors["surface"]!;
     return Scaffold(
-            backgroundColor: surface,
-      body:Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: SizedBox(
-                width: double.infinity,
-                child: DotLottieLoader.fromAsset("assets/motions/profile.lottie",
-                      frameBuilder: (BuildContext ctx, DotLottie? dotlottie) {
-                    if (dotlottie != null) {
-                      return Lottie.memory(dotlottie.animations.values.single);
-                    } else {
-                      return Container();
-                    }
-                  }),
-              ),
+      appBar: AppBar(
+        title: const Text("Profil"),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Profile Screen"),
+          const Text("Briefly MR"),
+          const Text("brieflymr@gmail.com"),
+          if (Navigator.canPop(context))
+            IconButton(
+              onPressed: () {
+                // Geri git
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back),
             ),
+          ElevatedButton(
+            onPressed: () {
+              // Hesaptan çıkış yap
+            },
+            child: const Text("Hesaptan Çıkış Yap"),
           ),
-        bottomNavigationBar: BottomMenu(),
+          if (context.read<ThemeProvider>().isDark)
+            IconButton(
+              icon: const Icon(CupertinoIcons.sun_max),
+              onPressed: () {
+                context.read<ThemeProvider>().toggleTheme();
+              },
+            )
+          else
+            IconButton(
+              icon: const Icon(CupertinoIcons.moon),
+              onPressed: () {
+                context.read<ThemeProvider>().toggleTheme();
+              },
+            ),
+        ],
+      ),
+      bottomNavigationBar: const BottomMenu(),
     );
   }
 }
