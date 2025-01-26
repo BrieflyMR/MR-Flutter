@@ -10,8 +10,9 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surface = lightColors["surface"]!;
     return Scaffold(
-            backgroundColor: arkaplanRengim,
+            backgroundColor: surface,
       body:Expanded(
             child: Container(
               padding: const EdgeInsets.all(16),

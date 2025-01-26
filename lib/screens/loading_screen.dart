@@ -10,8 +10,9 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surface = lightColors["surface"]!;
     return Scaffold(
-      backgroundColor: arkaplanRengim,
+      backgroundColor: surface,
       body: SizedBox.expand(
         //width: double.infinity,
         child: Column(

@@ -1,9 +1,8 @@
-import 'package:dotlottie_loader/dotlottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/core/constants.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../widgets/bottom_menu.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,11 +10,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primary = lightColors["primary"]!;
+    final secondary = lightColors["secondary"]!;
+    final surface = lightColors["surface"]!;
+
     return Scaffold(
-      backgroundColor: arkaplanRengim,
+      backgroundColor: surface,
+
       // AppBar
       appBar: AppBar(
-        backgroundColor: ikinciRengim,
+        backgroundColor: secondary,
         title: const Text('Partyverse'),
         actions: [
           IconButton(
@@ -27,24 +31,22 @@ class HomeScreen extends StatelessWidget {
 
       // Drawer (Yan Menü)
       drawer: Drawer(
-        backgroundColor: arkaplanRengim,
+        backgroundColor: primary,
         elevation: 0,
         child: Column(
           children: [
             // Drawer Header
             Container(
               height: 200,
-              //color: Colors.blue,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     CupertinoIcons.person_circle,
                     size: 80,
-                    color: ikinciRengim,
+                    color: secondary,
                   ),
                   const SizedBox(height: 10),
-                  
                 ],
               ),
             ),
@@ -86,19 +88,18 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: SizedBox(
-                width: double.infinity,
-                child: DotLottieLoader.fromAsset("assets/motions/party2.lottie",
-                      frameBuilder: (BuildContext ctx, DotLottie? dotlottie) {
-                    if (dotlottie != null) {
-                      return Lottie.memory(dotlottie.animations.values.single);
-                    } else {
-                      return Container();
-                    }
-                  }),
-              ),
+            child: ListView(
+              children: const [
+                Text(
+                  "Heading 1",
+                  style: TextStyle(
+                    fontSize: 38,
+                  ),
+                ),
+                Text("Heading 2"),
+                Text("Heading 3"),
+                Text("Heading 4"),
+              ],
             ),
           ),
         ],
@@ -109,4 +110,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
