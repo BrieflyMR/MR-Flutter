@@ -1,7 +1,6 @@
 import 'package:dotlottie_loader/dotlottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
 import '../core/constants.dart';
 import '../widgets/bottom_menu.dart';
 
@@ -12,24 +11,71 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final surface = lightColors["surface"]!;
     return Scaffold(
-            backgroundColor: surface,
-      body:Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: SizedBox(
-                width: double.infinity,
-                child: DotLottieLoader.fromAsset("assets/motions/search.lottie",
-                      frameBuilder: (BuildContext ctx, DotLottie? dotlottie) {
-                    if (dotlottie != null) {
-                      return Lottie.memory(dotlottie.animations.values.single);
-                    } else {
-                      return Container();
-                    }
-                  }),
-              ),
-            ),
+      backgroundColor: surface,
+      body: Column(
+        children: [
+          Text(
+            "Label Small",
+            style: Theme.of(context).textTheme.labelSmall,
           ),
-        bottomNavigationBar: BottomMenu(),
+          Text(
+            "Label Medium",
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+          Text(
+            "Label Large",
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          Text(
+            "Body Small",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          Text(
+            "Body Medium",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          Text(
+            "Body Large",
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Text(
+            "Title Small",
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          Text(
+            "Title Medium",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Text(
+            "Title Large",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          Text(
+            "Headline Small",
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Text(
+            "Headline Medium",
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Text(
+            "Headline Large",
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+          Text(
+            "Display Small",
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
+          Text(
+            "Display Medium",
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
+          Text(
+            "Display Large",
+            style: Theme.of(context).textTheme.displayLarge,
+          ),
+        ],
+      ),
     );
   }
 }
