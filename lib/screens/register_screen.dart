@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends StatefulWidget {
 const RegisterScreen({super.key});
@@ -51,8 +52,17 @@ Widget build(BuildContext context) {
             ),
             SizedBox(height: 10,),
             ElevatedButton(
-              onPressed: () {}, 
+              onPressed: () {
+                context.push("/home");
+              }, 
               child: const Text("Kayıt Ol"),
+              ),
+            SizedBox(height: 10,),
+            ElevatedButton(
+              onPressed: () {
+                context.push("/login");
+              }, 
+              child: const Text("Giris Yap"),
               ),
             ],
           ),
