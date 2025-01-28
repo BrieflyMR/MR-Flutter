@@ -45,48 +45,98 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: SizedBox(
-          width: 250,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(),
+    body: Center(
+      child: SizedBox(
+        width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             TextField(
               controller: epostaYonetici,
               decoration: InputDecoration(
                 hintText: "E-Posta",
-                //helper: Text("E-Postanızı Giriniz"),
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                prefixIcon: Icon(Icons.email),
               ),
-              
-              /*keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],*/
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 15),
             TextField(
               obscureText: true,
               controller: sifreYonetici,
               decoration: InputDecoration(
                 hintText: "Şifre",
-                //helper: Text("Şifrenizi Giriniz"),
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                prefixIcon: Icon(Icons.lock),
               ),
             ),
-            SizedBox(height: 10,),
-            ElevatedButton(
-              onPressed: girisYap, 
-              child: const Text("Giris Yap"),),
-            SizedBox(height: 10,),
-            ElevatedButton(
-              onPressed: () {
-                context.pushReplacement("/register");
-              }, 
-              child: const Text("Kayıt Ol"),
+            SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: girisYap,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text("Giriş Yap", style: TextStyle(fontSize: 16, color: Colors.white)),
+              ),
+            ),
+            SizedBox(height: 15),
+            SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () => context.pushReplacement("/register"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[200],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text("Kayıt Ol", style: TextStyle(fontSize: 16, color: Colors.black87)),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text("veya", style: TextStyle(color: Colors.grey)),
+            SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: OutlinedButton.icon(
+                onPressed: () {},
+                icon: Icon(Icons.apple),
+                label: Text("Apple ile devam et"),
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
+            SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: OutlinedButton.icon(
+                onPressed: () {},
+                icon: Icon(Icons.g_mobiledata, size: 30),
+                label: Text("Google ile devam et"),
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
