@@ -9,104 +9,211 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final primary = lightColors["primary"]!;
-    final secondary = lightColors["secondary"]!;
-    final surface = lightColors["surface"]!;
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Theme.of(context).colorScheme.background,
 
-    return Scaffold(
-      backgroundColor: surface,
-
-      // AppBar
-      appBar: AppBar(
-        backgroundColor: secondary,
-        title: const Text('Partyverse'),
-        actions: [
-          IconButton(
-            icon: const Icon(CupertinoIcons.app),
-            onPressed: () {},
-          ),
-        ],
-      ),
-
-      // Drawer (Yan Menü)
-      drawer: Drawer(
-        backgroundColor: primary,
-        elevation: 0,
-        child: Column(
-          children: [
-            // Drawer Header
-            Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    CupertinoIcons.person_circle,
-                    size: 80,
-                    color: secondary,
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            ),
-            // Menü öğeleri
-            ListTile(
-              leading: const Icon(CupertinoIcons.home),
-              title: const Text('Home Page'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(CupertinoIcons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(CupertinoIcons.profile_circled),
-              title: const Text('Profile'),
-              onTap: () {
-                context.go("/profile");
-              },
-            ),
-            ListTile(
-              leading: const Icon(CupertinoIcons.bell),
-              title: const Text('Notifications'),
-              onTap: () {
-                context.go("/notifications");
-                Navigator.pop(context);
-              },
-            ),
-          ],
+    appBar: AppBar(
+      elevation: 0,
+      title: const Text('Partyverse'),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.notifications_outlined),
+          onPressed: () => context.push('/notifications'),
         ),
-      ),
+        IconButton(
+          icon: const Icon(Icons.search_outlined), 
+          onPressed: () => context.push('/search'),
+        ),
+      ],
+    ),
 
-      // Ana içerik
-      body: Column(
+    drawer: Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          Expanded(
-            child: ListView(
-              children: const [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 40,
+                  child: Icon(Icons.person, size: 40),
+                ),
+                SizedBox(height: 10),
                 Text(
-                  "Heading 1",
+                  'Partyverse',
                   style: TextStyle(
-                    fontSize: 38,
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text("Heading 2"),
-                Text("Heading 3"),
-                Text("Heading 4"),
               ],
             ),
           ),
+          ListTile(
+            leading: const Icon(Icons.home_outlined),
+            title: const Text('Ana Sayfa'),
+            onTap: () => context.go('/home'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.shopping_bag_outlined),
+            title: const Text('Mağaza'),
+            onTap: () => context.push('/shop'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.person_outline),
+            title: const Text('Profil'),
+            onTap: () => context.push('/profile'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings_outlined),
+            title: const Text('Ayarlar'),
+            onTap: () => context.push('/settings'),
+          ),
         ],
       ),
+    ),
 
-      // Alt navigasyon çubuğu
-      bottomNavigationBar: BottomMenu(),
-    );
+    body: ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        Container(
+          height: 200,
+          margin: const EdgeInsets.only(bottom: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ],
+            ),
+          ),
+          child: const Center(
+            child: Text(
+              '🎉 Yakındaki Partiler',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+
+        SizedBox(
+          height: 120,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: const EdgeInsets.only(right: 10),
+                child: Container(
+                  width: 100,
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.celebration,
+                        size: 40,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        'Kategori',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+
+        const SizedBox(height: 20),
+
+        ...List.generate(
+          4,
+          (index) => Card(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(16),
+              leading: Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.music_note,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              title: const Text(
+                'Etkinlik Başlığı',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text('Tarih • Konum'),
+              trailing: IconButton(
+                icon: const Icon(Icons.arrow_forward_ios),
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+
+    bottomNavigationBar: NavigationBar(
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: 'Ana Sayfa',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.search_outlined),
+          selectedIcon: Icon(Icons.search),
+          label: 'Arama',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.shopping_bag_outlined),
+          selectedIcon: Icon(Icons.shopping_bag),
+          label: 'Mağaza',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person),
+          label: 'Profil',
+        ),
+      ],
+      onDestinationSelected: (index) {
+        switch (index) {
+          case 0:
+            context.go('/home');
+            break;
+          case 1:
+            context.push('/search');
+            break;
+          case 2:
+            context.push('/shop');
+            break;
+          case 3:
+            context.push('/profile');
+            break;
+        }
+      },
+    ),
+  );
   }
 }
