@@ -68,7 +68,6 @@ Widget build(BuildContext context) {
             height: 45,
             child: ElevatedButton.icon(
               onPressed: () {
-               // Hesaptan çıkış yap
               },
               icon: const Icon(Icons.logout),
               label: const Text("Hesaptan Çıkış Yap"),
