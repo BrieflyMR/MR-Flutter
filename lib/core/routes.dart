@@ -9,6 +9,7 @@ import '../screens/notifications_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/register_screen.dart';
 import '../screens/search_screen.dart';
+import '../screens/settings_screen.dart';
 import '../screens/shop_screen.dart';
 
 
@@ -47,6 +48,10 @@ final router = GoRouter(
     GoRoute(
       path: '/register',
       builder: (context, state) => const RegisterScreen(),
+    ),
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => const SettingsScreen(),
     ),
   ],
 );
