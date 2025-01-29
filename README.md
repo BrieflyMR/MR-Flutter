@@ -81,10 +81,7 @@ lib/
 --- 
 ## Demo Videosu
 
-<video width="320" height="240" controls>
-  <source src="assets/screenshots/UygulamamınDemoVideosu.mp4" type="video/mp4">
-  Tarayıcınız video etiketini desteklemiyor.
-</video>
+[Demo Videosu İzle](assets/screenshots/UygulamamınDemoVideosu.mp4)
 
 ---  
 
