@@ -58,24 +58,29 @@
 lib/
 ├── core/    # Hafıza,tema,navigasyon ve yönlendirme ögeleri
 ├── screens/    # Uygulama ekranları
-├── services/     # API sevisleri
+├─ ─ services/     # API sevisleri
 └── widgets/   # Tekrar kullanılabilir arayüz öğeleri
 ```  
 
----  
+--- 
 
 #### **Ekran Görüntüleri**  
-![Ekran Görüntüsü 1](assets/screenshots/yüklenmeekranıresmi.png)
-![Ekran Görüntüsü 2](assets/screenshots/anasayfaresmi.png)
-![Ekran Görüntüsü 3](assets/screenshots/aramaresmi.png)
-![Ekran Görüntüsü 4](assets/screenshots/alisverisresmi.png)
-![Ekran Görüntüsü 5](assets/screenshots/bildirimresmi.png)
-![Ekran Görüntüsü 6](assets/screenshots/profilresmi.png)
-![Ekran Görüntüsü 7](assets/screenshots/yanpencereresmi.png)
+![Ekran Görüntüsü 1](assets/screenshots/AçılışEkranı.png)
+![Ekran Görüntüsü 2](assets/screenshots/KayıtEkranı.png)
+![Ekran Görüntüsü 3](assets/screenshots/GirişEkranı.png)
+![Ekran Görüntüsü 4](assets/screenshots/AnaEkran.png)
+![Ekran Görüntüsü 5](assets/screenshots/AyarlarEkranı.png)
+![Ekran Görüntüsü 6](assets/screenshots/BildirimEkranı.png)
+![Ekran Görüntüsü 7](assets/screenshots/AramaEkranı.png)
+![Ekran Görüntüsü 8](assets/screenshots/AlışverişEkranı.png)
+![Ekran Görüntüsü 9](assets/screenshots/ProfilEkranı.png)
+
+--- 
 
 
-
-
+--- 
+#### **Demo Videosu** 
+![Demo Videosu](assets/screenshots/UygulamamınDemoVideosu.mp4)
 
 ---  
 
