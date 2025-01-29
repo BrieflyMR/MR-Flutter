@@ -1,5 +1,3 @@
-//uygulamada sayfalari ve navigasyon islemlerini burada tanimlicaz.
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../screens/loading_screen.dart';
@@ -12,46 +10,62 @@ import '../screens/search_screen.dart';
 import '../screens/settings_screen.dart';
 import '../screens/shop_screen.dart';
 
-
-// Router yapılandırması
 final router = GoRouter(
-  initialLocation: '/',  // Başlangıç rotası
+  initialLocation: '/',  
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const LoadingScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const LoadingScreen(),
+      ),
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => const HomeScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const HomeScreen(),
+      ),
     ),
     GoRoute(
       path: '/profile',
-      builder: (context, state) => const ProfileScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const ProfileScreen(),
+      ),
     ),
     GoRoute(
       path: '/notifications',
-      builder: (context, state) => const NotificationsScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const NotificationsScreen(),
+      ),
     ),
     GoRoute(
       path: '/shop',
-      builder: (context, state) => const ShopScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const ShopScreen(),
+      ),
     ),
     GoRoute(
       path: '/search',
-      builder: (context, state) => const SearchScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const SearchScreen(),
+      ),
     ),
     GoRoute(
       path: '/login',
-      builder: (context, state) => const LoginScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const LoginScreen(),
+      ),
     ),
     GoRoute(
       path: '/register',
-      builder: (context, state) => const RegisterScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const RegisterScreen(),
+      ),
     ),
     GoRoute(
       path: '/settings',
-      builder: (context, state) => const SettingsScreen(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const SettingsScreen(),
+      ),
     ),
   ],
 );

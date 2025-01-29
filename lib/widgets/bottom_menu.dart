@@ -1,61 +1,58 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class BottomMenu extends StatelessWidget {
+  final int currentIndex;
+  
   const BottomMenu({
     super.key,
+    this.currentIndex = 0,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 70,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-    IconButton(
-      onPressed: () {
-      context.go("/home");
-      }, 
-      icon: 
-      Icon(CupertinoIcons.home,
-            ),
-          ),
-    IconButton(
-      onPressed: () {
-      context.go("/search");
-      }, 
-      icon: 
-      Icon(CupertinoIcons.search,
-            ),
-          ),
-          IconButton(
-      onPressed: () {
-      context.go("/shop");
-      }, 
-      icon: 
-      Icon(Icons.celebration,
-            ),
-          ),
-    IconButton(
-      onPressed: () {
-      context.go("/notifications");
-      }, 
-      icon: 
-      Icon(CupertinoIcons.bell,
-            ),
-          ),
-    IconButton(
-      onPressed: () {
-      context.go("/profile");
-      }, 
-      icon: 
-      Icon(CupertinoIcons.person,
-            ),
-          ),
-        ],
-      ),
+    return NavigationBar(
+      selectedIndex: currentIndex,
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: 'Ana Sayfa',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.search_outlined),
+          selectedIcon: Icon(Icons.search),
+          label: 'Arama',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.shopping_bag_outlined),
+          selectedIcon: Icon(Icons.shopping_bag),
+          label: 'Mağaza',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person),
+          label: 'Profil',
+        ),
+      ],
+      onDestinationSelected: (index) {
+        switch (index) {
+          case 0:
+            context.go('/home');
+            break;
+          case 1:
+            context.push('/search');
+            break;
+          case 2:
+            context.push('/shop');
+            break;
+          case 3:
+            context.push('/profile');
+            break;
+        }
+      },
+      indicatorColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+      backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }
 }

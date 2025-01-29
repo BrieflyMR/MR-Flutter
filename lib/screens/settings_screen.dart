@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/main.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -8,7 +10,6 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-// SettingsScreen'in State sınıfı
 class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
@@ -23,7 +24,6 @@ Widget build(BuildContext context) {
       children: [
         const SizedBox(height: 16),
 
-       // Profil Bölümü
         ListTile(
           leading: const CircleAvatar(child: Icon(Icons.person)),
           title: const Text('Profil Ayarları'),
@@ -43,18 +43,19 @@ Widget build(BuildContext context) {
           onChanged: (bool value) {},
         ),
 
-       // Tema Ayarı
         SwitchListTile(
-          secondary: const Icon(Icons.dark_mode_outlined),
-          title: const Text('Koyu Tema'),
-          subtitle: const Text('Uygulama temasını değiştir'),
-          value: false,
-          onChanged: (bool value) {},
-        ),
+  secondary: const Icon(Icons.dark_mode_outlined),
+  title: const Text('Koyu Tema'),
+  subtitle: const Text('Uygulama temasını değiştir'),
+  value: context.watch<ThemeProvider>().isDark, 
+  onChanged: (bool value) {
+    context.read<ThemeProvider>().toggleTheme(); 
+  },
+),
+
 
         const Divider(),
 
-       // Güvenlik
         ListTile(
           leading: const Icon(Icons.security),
           title: const Text('Güvenlik'),
@@ -63,7 +64,6 @@ Widget build(BuildContext context) {
           onTap: () {},
         ),
 
-       // Gizlilik
         ListTile(
           leading: const Icon(Icons.privacy_tip_outlined),
           title: const Text('Gizlilik'),
@@ -74,7 +74,6 @@ Widget build(BuildContext context) {
 
         const Divider(),
 
-       // Yardım
         ListTile(
           leading: const Icon(Icons.help_outline),
           title: const Text('Yardım'),
@@ -83,7 +82,6 @@ Widget build(BuildContext context) {
           onTap: () {},
         ),
 
-       // Hakkında
         ListTile(
           leading: const Icon(Icons.info_outline),
           title: const Text('Hakkında'),
@@ -94,7 +92,6 @@ Widget build(BuildContext context) {
 
         const Divider(),
 
-       // Çıkış
         ListTile(
           leading: const Icon(Icons.logout, color: Colors.red),
           title: const Text('Çıkış Yap', 

@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import '../widgets/notification_card.dart';
+import '../widgets/bottom_menu.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -12,15 +11,17 @@ class NotificationsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Bildirimler'),
         elevation: 0,
+        backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          const Text(
+          Text(
             'Bugün',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const SizedBox(height: 8),
@@ -37,11 +38,12 @@ class NotificationsScreen extends StatelessWidget {
             time: '5 saat önce',
           ),
           const SizedBox(height: 24),
-          const Text(
+          Text(
             'Bu Hafta',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const SizedBox(height: 8),
@@ -59,6 +61,7 @@ class NotificationsScreen extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const BottomMenu(currentIndex: 0),
     );
   }
 }
