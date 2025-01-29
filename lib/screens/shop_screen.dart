@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../widgets/bottom_menu.dart';
 
 class ShopScreen extends StatelessWidget {
@@ -10,7 +11,12 @@ class ShopScreen extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mağaza'),
+        title: Text('Mağaza',
+        style: GoogleFonts.ubuntu(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+        ),
+        ),
         elevation: 0,
         actions: [
           IconButton(

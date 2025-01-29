@@ -51,7 +51,7 @@ class BottomMenu extends StatelessWidget {
             break;
         }
       },
-      indicatorColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+      indicatorColor: Theme.of(context).colorScheme.primary,
       backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }

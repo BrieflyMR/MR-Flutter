@@ -1,8 +1,7 @@
-import 'package:dotlottie_loader/dotlottie_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/main.dart';
-import 'package:lottie/lottie.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../core/constants.dart';
 import '../widgets/bottom_menu.dart';
@@ -14,7 +13,12 @@ class ProfileScreen extends StatelessWidget {
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: const Text("Profil"),
+      title: Text("Profil",
+      style: GoogleFonts.ubuntu(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+      ),
+      ),
       actions: [
         IconButton(
           icon: Icon(
@@ -34,7 +38,7 @@ Widget build(BuildContext context) {
           Center(
             child: CircleAvatar(
               radius: 50,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               child: const Icon(Icons.person, size: 50, color: Colors.white),
             ),
           ),
@@ -72,8 +76,8 @@ Widget build(BuildContext context) {
               icon: const Icon(Icons.logout),
               label: const Text("Hesaptan Çıkış Yap"),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.error,
+                foregroundColor: Theme.of(context).colorScheme.onError,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                   ),

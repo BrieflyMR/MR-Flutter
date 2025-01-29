@@ -19,8 +19,6 @@ final lightTheme = ThemeData(
     onSurface: lightColors["onSurface"]!,
     error: lightColors["error"]!,
     onError: lightColors["onError"]!,
-    background: Colors.white,
-    onBackground: Colors.black,
   ),
   primarySwatch: Colors.blue,
   visualDensity: VisualDensity.adaptivePlatformDensity,

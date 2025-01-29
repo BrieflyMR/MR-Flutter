@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../widgets/bottom_menu.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -10,7 +11,12 @@ class SearchScreen extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Arama"),
+        title: Text("Arama",
+        style: GoogleFonts.ubuntu(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+        ),
+        ),
         elevation: 0,
         backgroundColor: theme.colorScheme.surface,
         bottom: PreferredSize(

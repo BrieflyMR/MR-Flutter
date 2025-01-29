@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/core/constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,11 +10,17 @@ class HomeScreen extends StatelessWidget {
   @override
 Widget build(BuildContext context) {
   return Scaffold(
-    backgroundColor: Theme.of(context).colorScheme.background,
+    backgroundColor: Theme.of(context).colorScheme.surface,
 
     appBar: AppBar(
       elevation: 0,
-      title: const Text('Partyverse'),
+      title: Text(
+                  'Partyverse',
+                  style: GoogleFonts.ubuntu(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications_outlined),
@@ -36,20 +41,20 @@ Widget build(BuildContext context) {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
             ),
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 40,
                   child: Icon(Icons.person, size: 40),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   'Partyverse',
-                  style: TextStyle(
+                  style: GoogleFonts.ubuntu(
                     color: Colors.white,
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -168,52 +173,14 @@ Widget build(BuildContext context) {
                 icon: const Icon(Icons.arrow_forward_ios),
                 onPressed: () {},
               ),
+              
             ),
           ),
         ),
       ],
     ),
 
-    bottomNavigationBar: NavigationBar(
-      destinations: const [
-        NavigationDestination(
-          icon: Icon(Icons.home_outlined),
-          selectedIcon: Icon(Icons.home),
-          label: 'Ana Sayfa',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.search_outlined),
-          selectedIcon: Icon(Icons.search),
-          label: 'Arama',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.shopping_bag_outlined),
-          selectedIcon: Icon(Icons.shopping_bag),
-          label: 'Mağaza',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.person_outline),
-          selectedIcon: Icon(Icons.person),
-          label: 'Profil',
-        ),
-      ],
-      onDestinationSelected: (index) {
-        switch (index) {
-          case 0:
-            context.go('/home');
-            break;
-          case 1:
-            context.push('/search');
-            break;
-          case 2:
-            context.push('/shop');
-            break;
-          case 3:
-            context.push('/profile');
-            break;
-        }
-      },
-    ),
+    bottomNavigationBar: const BottomMenu(),
   );
   }
 }
