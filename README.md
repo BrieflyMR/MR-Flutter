@@ -82,7 +82,7 @@ lib/
 --- 
 ## Demo Videosu
 
-[Demo Videosu İzle](assets/screenshots/DemoVideosu.mp4)
+[Demo Videosu İzle](assets/demovideo/DemoVideosu.mp4)
 
 ---  
 
