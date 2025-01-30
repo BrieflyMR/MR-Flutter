@@ -5,34 +5,38 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/bottom_menu.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+      HomeScreen({super.key});
 
   @override
 Widget build(BuildContext context) {
   return Scaffold(
     backgroundColor: Theme.of(context).colorScheme.surface,
-
     appBar: AppBar(
+      iconTheme: IconThemeData(
+    color: Theme.of(context).colorScheme.onPrimary,),
       elevation: 0,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Text(
-                  'Partyverse',
-                  style: GoogleFonts.ubuntu(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+        'Partyverse',
+        style: GoogleFonts.ubuntu(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+      ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.notifications_outlined),
+          icon: Icon(Icons.notifications_outlined, 
+            color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => context.push('/notifications'),
         ),
         IconButton(
-          icon: const Icon(Icons.search_outlined), 
+          icon: Icon(Icons.search_outlined,
+            color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => context.push('/search'),
         ),
       ],
     ),
-
     drawer: Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -44,15 +48,17 @@ Widget build(BuildContext context) {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 40,
-                  child: Icon(Icons.person, size: 40),
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                  child: Icon(Icons.person, size: 40, 
+                    color: Theme.of(context).colorScheme.primary),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'Partyverse',
                   style: GoogleFonts.ubuntu(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
@@ -62,28 +68,27 @@ Widget build(BuildContext context) {
           ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
-            title: const Text('Ana Sayfa'),
+            title: Text('Ana Sayfa', style: GoogleFonts.ubuntu()),
             onTap: () => context.go('/home'),
           ),
           ListTile(
             leading: const Icon(Icons.shopping_bag_outlined),
-            title: const Text('Mağaza'),
+            title: Text('Mağaza', style: GoogleFonts.ubuntu()),
             onTap: () => context.push('/shop'),
           ),
           ListTile(
             leading: const Icon(Icons.person_outline),
-            title: const Text('Profil'),
+            title: Text('Profil', style: GoogleFonts.ubuntu()),
             onTap: () => context.push('/profile'),
           ),
           ListTile(
             leading: const Icon(Icons.settings_outlined),
-            title: const Text('Ayarlar'),
+            title: Text('Ayarlar', style: GoogleFonts.ubuntu()),
             onTap: () => context.push('/settings'),
           ),
         ],
       ),
     ),
-
     body: ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -99,26 +104,35 @@ Widget build(BuildContext context) {
               ],
             ),
           ),
-          child: const Center(
+          child: Center(
             child: Text(
               '🎉 Yakındaki Partiler',
-              style: TextStyle(
+              style: GoogleFonts.ubuntu(
                 fontSize: 24,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
         ),
-
+        Text(
+          'Kategoriler',
+          style: GoogleFonts.ubuntu(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        const SizedBox(height: 10),
         SizedBox(
           height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 5,
+            itemCount: categories.length,
             itemBuilder: (context, index) {
               return Card(
                 margin: const EdgeInsets.only(right: 10),
+                color: Theme.of(context).colorScheme.surface,
                 child: Container(
                   width: 100,
                   padding: const EdgeInsets.all(8),
@@ -126,15 +140,15 @@ Widget build(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.celebration,
+                        categoryIcons[index],
                         size: 40,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        'Kategori',
+                      Text(
+                        categories[index],
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12),
+                        style: GoogleFonts.ubuntu(fontSize: 12),
                       ),
                     ],
                   ),
@@ -143,44 +157,60 @@ Widget build(BuildContext context) {
             },
           ),
         ),
-
         const SizedBox(height: 20),
-
+        Text(
+          'Popüler Etkinlikler',
+          style: GoogleFonts.ubuntu(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        const SizedBox(height: 10),
         ...List.generate(
-          4,
+          events.length,
           (index) => Card(
             margin: const EdgeInsets.only(bottom: 10),
+            color: Theme.of(context).colorScheme.surface,
             child: ListTile(
               contentPadding: const EdgeInsets.all(16),
               leading: Container(
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.music_note,
+                  eventIcons[index],
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              title: const Text(
-                'Etkinlik Başlığı',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              title: Text(
+                events[index],
+                style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
               ),
-              subtitle: const Text('Tarih • Konum'),
+              subtitle: Text(eventDates[index], style: GoogleFonts.ubuntu()),
               trailing: IconButton(
                 icon: const Icon(Icons.arrow_forward_ios),
                 onPressed: () {},
               ),
-              
             ),
           ),
         ),
       ],
     ),
-
     bottomNavigationBar: const BottomMenu(),
   );
-  }
+}
+
+final List<String> categories = ['Doğum Günü', 'Düğün', 'İş', 'Festival', 'Diğer'];
+final List<IconData> categoryIcons = [
+  Icons.cake, Icons.favorite, Icons.work, Icons.festival, Icons.more_horiz
+];
+final List<String> events = ['Yaz Festivali', 'Doğum Günü Partisi', 'İş Kutlaması', 'Mezuniyet'];
+final List<String> eventDates = ['15 Temmuz • İstanbul', '20 Temmuz • Ankara', '25 Temmuz • İzmir', '30 Temmuz • Bursa'];
+final List<IconData> eventIcons = [
+  Icons.music_note, Icons.cake, Icons.work, Icons.school
+];
 }

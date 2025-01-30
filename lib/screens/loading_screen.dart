@@ -14,10 +14,8 @@ class LoadingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: surface,
       body: SizedBox.expand(
-        //width: double.infinity,
         child: Column(
           children: [
-            // Logo bölümü
             Expanded(
               child: Container(
                 width: 500,
@@ -28,9 +26,6 @@ class LoadingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
-            // Yükleniyor yazısı
-            //CircularProgressIndicator(),
             InkWell(
               onTap: () => context.go("/home"),
               child: SizedBox(
@@ -45,7 +40,6 @@ class LoadingScreen extends StatelessWidget {
                   }),
               ),
             ),
-            //biraz bosluk birakalim
             SizedBox(height: 20),
           ],
         ),

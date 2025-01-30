@@ -13,8 +13,9 @@ class SearchScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Arama",
         style: GoogleFonts.ubuntu(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: theme.colorScheme.onSurface,
         ),
         ),
         elevation: 0,
@@ -24,12 +25,15 @@ class SearchScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              style: GoogleFonts.ubuntu(),
               decoration: InputDecoration(
                 hintText: "Ne aramak istersiniz?",
+                hintStyle: GoogleFonts.ubuntu(color: theme.colorScheme.onSurface.withOpacity(0.7)),
                 prefixIcon: Icon(Icons.search, color: theme.colorScheme.primary),
                 suffixIcon: Icon(Icons.mic, color: theme.colorScheme.primary),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: theme.colorScheme.primary),
                 ),
                 filled: true,
                 fillColor: theme.colorScheme.surface,
@@ -47,7 +51,8 @@ class SearchScreen extends StatelessWidget {
             children: [
               Text(
                 "Kategoriler",
-                style: theme.textTheme.titleLarge?.copyWith(
+                style: GoogleFonts.ubuntu(
+                  fontSize: theme.textTheme.titleLarge?.fontSize,
                   fontWeight: FontWeight.bold,
                   color: theme.colorScheme.primary,
                 ),
@@ -71,7 +76,8 @@ class SearchScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Son Aramalar",
-                    style: theme.textTheme.titleLarge?.copyWith(
+                    style: GoogleFonts.ubuntu(
+                      fontSize: theme.textTheme.titleLarge?.fontSize,
                       fontWeight: FontWeight.bold,
                       color: theme.colorScheme.primary,
                     ),
@@ -80,7 +86,7 @@ class SearchScreen extends StatelessWidget {
                     onPressed: () {},
                     child: Text(
                       "Tümünü Temizle",
-                      style: TextStyle(color: theme.colorScheme.secondary),
+                      style: GoogleFonts.ubuntu(color: theme.colorScheme.secondary),
                     ),
                   ),
                 ],
@@ -110,11 +116,11 @@ class SearchScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
       child: FilterChip(
-        label: Text(label),
+        label: Text(label, style: GoogleFonts.ubuntu()),
         selected: isSelected,
         onSelected: (bool selected) {},
         backgroundColor: isSelected ? theme.colorScheme.primary : theme.colorScheme.surface,
-        labelStyle: TextStyle(
+        labelStyle: GoogleFonts.ubuntu(
           color: isSelected ? Colors.white : theme.colorScheme.onSurface,
           fontWeight: FontWeight.w500,
         ),
@@ -131,9 +137,9 @@ class SearchScreen extends StatelessWidget {
       ),
       title: Text(
         search,
-        style: TextStyle(fontWeight: FontWeight.w500),
+        style: GoogleFonts.ubuntu(fontWeight: FontWeight.w500),
       ),
-      subtitle: Text(time),
+      subtitle: Text(time, style: GoogleFonts.ubuntu()),
       trailing: Icon(Icons.north_west, color: theme.colorScheme.primary),
       onTap: () {},
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/shopping_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/bottom_menu.dart';
 
@@ -13,19 +14,26 @@ class ShopScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Mağaza',
         style: GoogleFonts.ubuntu(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: theme.colorScheme.onSurface,
         ),
         ),
         elevation: 0,
+        backgroundColor: theme.colorScheme.surface,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: Icon(Icons.search, color: theme.colorScheme.primary),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            onPressed: () {},
+            icon: Icon(Icons.shopping_cart_outlined, color: theme.colorScheme.primary),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ShoppingCard()),
+              );
+            },
           ),
         ],
       ),
@@ -72,12 +80,12 @@ class ShopScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: FilterChip(
-        label: Text(label),
+        label: Text(label, style: GoogleFonts.ubuntu()),
         selected: isSelected,
         onSelected: (_) {},
         backgroundColor: theme.colorScheme.surface,
         selectedColor: theme.colorScheme.primary.withOpacity(0.2),
-        labelStyle: TextStyle(
+        labelStyle: GoogleFonts.ubuntu(
           color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface,
           fontWeight: FontWeight.w500,
         ),
@@ -126,7 +134,8 @@ class ShopScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Parti Malzemesi ${index + 1}',
-                    style: theme.textTheme.titleMedium?.copyWith(
+                    style: GoogleFonts.ubuntu(
+                      fontSize: theme.textTheme.titleMedium?.fontSize,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
@@ -135,7 +144,8 @@ class ShopScreen extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     '₺${(index + 1) * 99}.99',
-                    style: theme.textTheme.titleLarge?.copyWith(
+                    style: GoogleFonts.ubuntu(
+                      fontSize: theme.textTheme.titleLarge?.fontSize,
                       color: theme.colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
@@ -148,14 +158,13 @@ class ShopScreen extends StatelessWidget {
                         children: [
                           Icon(Icons.star, size: 16, color: theme.colorScheme.secondary),
                           const SizedBox(width: 4),
-                          Text('4.${index % 5 + 1}'),
+                          Text('4.${index % 5 + 1}', style: GoogleFonts.ubuntu()),
                         ],
                       ),
                       IconButton(
-                        icon: const Icon(Icons.add_shopping_cart),
+                        icon: Icon(Icons.add_shopping_cart, color: theme.colorScheme.primary),
                         onPressed: () {},
                         iconSize: 20,
-                        color: theme.colorScheme.primary,
                       ),
                     ],
                   ),

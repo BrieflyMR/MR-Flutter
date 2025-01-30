@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/main.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_app/core/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -34,7 +36,6 @@ Widget build(BuildContext context) {
 
         const Divider(),
 
-       // Bildirim Ayarları
         SwitchListTile(
           secondary: const Icon(Icons.notifications_outlined),
           title: const Text('Bildirimler'),
@@ -93,12 +94,16 @@ Widget build(BuildContext context) {
         const Divider(),
 
         ListTile(
-          leading: const Icon(Icons.logout, color: Colors.red),
-          title: const Text('Çıkış Yap', 
-            style: TextStyle(color: Colors.red),
-          ),
-          onTap: () => context.go('/login'),
-        ),
+  leading: Icon(Icons.logout, 
+    color: Theme.of(context).colorScheme.error),
+  title: Text(
+    'Çıkış Yap',
+    style: GoogleFonts.ubuntu(
+      color: Theme.of(context).colorScheme.error,
+    ),
+  ),
+  onTap: () => context.go('/login'),
+),
       ],
     ),
   );

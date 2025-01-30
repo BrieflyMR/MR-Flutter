@@ -5,8 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 final lightTheme = ThemeData(
   brightness: Brightness.light,
   textTheme: TextTheme(
-    displayLarge: GoogleFonts.roboto(
+    displayLarge: GoogleFonts.ubuntu(
       fontSize: 30,
+      fontWeight: FontWeight.w500,
     ),
   ),
   colorScheme: ColorScheme(
@@ -27,8 +28,9 @@ final lightTheme = ThemeData(
 final darkTheme = ThemeData(
   brightness: Brightness.dark,
   textTheme: TextTheme(
-    displayLarge: GoogleFonts.roboto(
+    displayLarge: GoogleFonts.ubuntu(
       fontSize: 30,
+      fontWeight: FontWeight.w500,
     ),
   ),
   colorScheme: ColorScheme.dark(
