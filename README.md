@@ -74,6 +74,7 @@ lib/
 ![Ekran Görüntüsü 7](assets/screenshots/AramaEkranı.png)
 ![Ekran Görüntüsü 8](assets/screenshots/AlışverişEkranı.png)
 ![Ekran Görüntüsü 9](assets/screenshots/ProfilEkranı.png)
+![Ekran Görüntüsü 10](assets/screenshots/SepetEkranı.png)
 
 --- 
 
@@ -104,7 +105,7 @@ lib/
 ---  
 
 #### **Lisans**  
-Bu proje, [Lisans Türü] kapsamında lisanslanmıştır. Daha fazla bilgi için **LICENSE** dosyasını inceleyebilirsiniz.  
+Bu proje, [MIT License] kapsamında lisanslanmıştır. Daha fazla bilgi için **LICENSE** dosyasını inceleyebilirsiniz.  
 
 ---  
 
