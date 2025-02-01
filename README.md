@@ -1,5 +1,4 @@
-<img src="assets/images/logo.png" alt="İstinye Üniversitesi" width="150">
-
+![İstinye Üniversitesi](assets/images/logolo.png)
 ### **PARTYVERSE: Flutter Projesi**  
 **Eğlenceye açılan kapı!**  
 ---  
