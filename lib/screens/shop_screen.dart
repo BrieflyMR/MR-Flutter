@@ -9,15 +9,79 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
+    final products = [
+      {
+        'title': 'Doğum Günü Balonları',
+        'price': '49.99',
+        'rating': '4.5',
+        'icon': Icons.cake,
+      },
+      {
+        'title': 'Renkli Şapkalar',
+        'price': '29.99',
+        'rating': '4.3',
+        'icon': Icons.emoji_people,
+      },
+      {
+        'title': 'Konfeti Seti',
+        'price': '19.99',
+        'rating': '4.2',
+        'icon': Icons.auto_awesome,
+      },
+      {
+        'title': 'Yılbaşı Süsü',
+        'price': '39.99',
+        'rating': '4.6',
+        'icon': Icons.star,
+      },
+      {
+        'title': 'Parti Gözlüğü',
+        'price': '24.99',
+        'rating': '4.1',
+        'icon': Icons.remove_red_eye,
+      },
+      {
+        'title': 'Işıklı Aksesuar',
+        'price': '59.99',
+        'rating': '4.8',
+        'icon': Icons.light_mode,
+      },
+      {
+        'title': 'Yılbaşı Şapkası',
+        'price': '34.99',
+        'rating': '4.4',
+        'icon': Icons.wb_incandescent,
+      },
+      {
+        'title': 'Parti Bandı',
+        'price': '14.99',
+        'rating': '4.0',
+        'icon': Icons.format_color_fill,
+      },
+      {
+        'title': 'Hediye Kutusu',
+        'price': '64.99',
+        'rating': '4.7',
+        'icon': Icons.card_giftcard,
+      },
+      {
+        'title': 'Simli Perde',
+        'price': '44.99',
+        'rating': '4.5',
+        'icon': Icons.blur_on,
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mağaza',
-        style: GoogleFonts.ubuntu(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: theme.colorScheme.onSurface,
-        ),
+        title: Text(
+          'Mağaza',
+          style: GoogleFonts.ubuntu(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: theme.colorScheme.onSurface,
+          ),
         ),
         elevation: 0,
         backgroundColor: theme.colorScheme.surface,
@@ -65,8 +129,11 @@ class ShopScreen extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
               ),
-              itemCount: 10,
-              itemBuilder: (context, index) => _buildProductCard(context, index),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return _buildProductCard(context, product);
+              },
             ),
           ),
         ],
@@ -96,84 +163,87 @@ class ShopScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProductCard(BuildContext context, int index) {
-    final theme = Theme.of(context);
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                gradient: LinearGradient(
-                  colors: [
-                    theme.colorScheme.primary.withOpacity(0.1),
-                    theme.colorScheme.secondary.withOpacity(0.1),
-                  ],
-                ),
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.celebration,
-                  size: 48,
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Parti Malzemesi ${index + 1}',
-                    style: GoogleFonts.ubuntu(
-                      fontSize: theme.textTheme.titleMedium?.fontSize,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '₺${(index + 1) * 99}.99',
-                    style: GoogleFonts.ubuntu(
-                      fontSize: theme.textTheme.titleLarge?.fontSize,
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.star, size: 16, color: theme.colorScheme.secondary),
-                          const SizedBox(width: 4),
-                          Text('4.${index % 5 + 1}', style: GoogleFonts.ubuntu()),
-                        ],
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.add_shopping_cart, color: theme.colorScheme.primary),
-                        onPressed: () {},
-                        iconSize: 20,
-                      ),
-                    ],
-                  ),
+  Widget _buildProductCard(BuildContext context, Map product) {
+  final theme = Theme.of(context);
+  return Card(
+    elevation: 2,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 3,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+              gradient: LinearGradient(
+                colors: [
+                  theme.colorScheme.primary.withOpacity(0.1),
+                  theme.colorScheme.secondary.withOpacity(0.1),
                 ],
               ),
             ),
+            child: Center(
+              child: Icon(
+                product['icon'],
+                size: 48,
+                color: theme.colorScheme.primary,
+              ),
+            ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+        Flexible(
+          flex: 2,
+          fit: FlexFit.loose,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product['title'],
+                  style: GoogleFonts.ubuntu(
+                    fontSize: theme.textTheme.titleMedium?.fontSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '₺${product['price']}',
+                  style: GoogleFonts.ubuntu(
+                    fontSize: theme.textTheme.titleLarge?.fontSize,
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.star, size: 16, color: theme.colorScheme.secondary),
+                        const SizedBox(width: 4),
+                        Text(product['rating'], style: GoogleFonts.ubuntu()),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add_shopping_cart, color: theme.colorScheme.primary),
+                      onPressed: () {},
+                      iconSize: 20,
+                      padding: EdgeInsets.zero, 
+                      constraints: const BoxConstraints(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 }
