@@ -12,64 +12,64 @@ class ShopScreen extends StatelessWidget {
 
     final products = [
       {
-        'title': 'Doğum Günü Balonları',
-        'price': '49.99',
-        'rating': '4.5',
-        'icon': Icons.cake,
+        'baslik': 'Doğum Günü Balonları',
+        'fiyat': '49.99',
+        'degerlendirme': '4.5',
+        'imageUrl': 'assets/images/doğumgünübalonları.jpg',
       },
       {
-        'title': 'Renkli Şapkalar',
-        'price': '29.99',
-        'rating': '4.3',
-        'icon': Icons.emoji_people,
+        'baslik': 'Doğum Günü Şapkaları',
+        'fiyat': '29.99',
+        'degerlendirme': '4.3',
+        'imageUrl': 'assets/images/doğumgünüşapkaları.jpg',
       },
       {
-        'title': 'Konfeti Seti',
-        'price': '19.99',
-        'rating': '4.2',
-        'icon': Icons.auto_awesome,
+        'baslik': 'Konfeti Seti',
+        'fiyat': '19.99',
+        'degerlendirme': '4.2',
+        'imageUrl': 'assets/images/konfeti.jpg',
       },
       {
-        'title': 'Yılbaşı Süsü',
-        'price': '39.99',
-        'rating': '4.6',
-        'icon': Icons.star,
+        'baslik': 'Yılbaşı Süsü',
+        'fiyat': '39.99',
+        'degerlendirme': '4.6',
+        'imageUrl': 'assets/images/yilbaşisüsü.jpg',
       },
       {
-        'title': 'Parti Gözlüğü',
-        'price': '24.99',
-        'rating': '4.1',
-        'icon': Icons.remove_red_eye,
+        'baslik': 'Parti Gözlüğü',
+        'fiyat': '24.99',
+        'degerlendirme': '4.1',
+        'imageUrl': 'assets/images/partigözlüğü.jpg',
       },
       {
-        'title': 'Işıklı Aksesuar',
-        'price': '59.99',
-        'rating': '4.8',
-        'icon': Icons.light_mode,
+        'baslik': 'Neon Işıklar',
+        'fiyat': '59.99',
+        'degerlendirme': '4.8',
+        'imageUrl': 'assets/images/neonışıklar.jpg',
       },
       {
-        'title': 'Yılbaşı Şapkası',
-        'price': '34.99',
-        'rating': '4.4',
-        'icon': Icons.wb_incandescent,
+        'baslik': 'Yılbaşı Şapkası',
+        'fiyat': '34.99',
+        'degerlendirme': '4.4',
+        'imageUrl': 'assets/images/yılbaşışapkası.png',
       },
       {
-        'title': 'Parti Bandı',
-        'price': '14.99',
-        'rating': '4.0',
-        'icon': Icons.format_color_fill,
+        'baslik': 'Parti Düdüğü',
+        'fiyat': '14.99',
+        'degerlendirme': '4.0',
+        'imageUrl': 'assets/images/partidüdüğü.jpg',
       },
       {
-        'title': 'Hediye Kutusu',
-        'price': '64.99',
-        'rating': '4.7',
-        'icon': Icons.card_giftcard,
+        'baslik': 'Hediye Kutusu',
+        'fiyat': '64.99',
+        'degerlendirme': '4.7',
+        'imageUrl': 'assets/images/hediyekutusu.jpg',
       },
       {
-        'title': 'Simli Perde',
-        'price': '44.99',
-        'rating': '4.5',
-        'icon': Icons.blur_on,
+        'baslik': 'Parti Balonları',
+        'fiyat': '44.99',
+        'degerlendirme': '4.5',
+        'imageUrl': 'assets/images/partibalonları.jpg',
       },
     ];
 
@@ -164,86 +164,87 @@ class ShopScreen extends StatelessWidget {
   }
 
   Widget _buildProductCard(BuildContext context, Map product) {
-  final theme = Theme.of(context);
-  return Card(
-    elevation: 2,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 3,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-              gradient: LinearGradient(
-                colors: [
-                  theme.colorScheme.primary.withOpacity(0.1),
-                  theme.colorScheme.secondary.withOpacity(0.1),
+    final theme = Theme.of(context);
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                gradient: LinearGradient(
+                  colors: [
+                    theme.colorScheme.primary.withOpacity(0.1),
+                    theme.colorScheme.secondary.withOpacity(0.1),
+                  ],
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                child: Image.network(
+                  product['imageUrl'],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 2,
+            fit: FlexFit.loose,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product['baslik'],
+                    style: GoogleFonts.ubuntu(
+                      fontSize: theme.textTheme.titleMedium?.fontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '₺${product['fiyat']}',
+                    style: GoogleFonts.ubuntu(
+                      fontSize: theme.textTheme.titleLarge?.fontSize,
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.star, size: 16, color: theme.colorScheme.secondary),
+                          const SizedBox(width: 4),
+                          Text(product['degerlendirme'], style: GoogleFonts.ubuntu()),
+                        ],
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.add_shopping_cart, color: theme.colorScheme.primary),
+                        onPressed: () {},
+                        iconSize: 20,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
-            child: Center(
-              child: Icon(
-                product['icon'],
-                size: 48,
-                color: theme.colorScheme.primary,
-              ),
-            ),
           ),
-        ),
-        Flexible(
-          flex: 2,
-          fit: FlexFit.loose,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product['title'],
-                  style: GoogleFonts.ubuntu(
-                    fontSize: theme.textTheme.titleMedium?.fontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  '₺${product['price']}',
-                  style: GoogleFonts.ubuntu(
-                    fontSize: theme.textTheme.titleLarge?.fontSize,
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.star, size: 16, color: theme.colorScheme.secondary),
-                        const SizedBox(width: 4),
-                        Text(product['rating'], style: GoogleFonts.ubuntu()),
-                      ],
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.add_shopping_cart, color: theme.colorScheme.primary),
-                      onPressed: () {},
-                      iconSize: 20,
-                      padding: EdgeInsets.zero, 
-                      constraints: const BoxConstraints(),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }
