@@ -10,6 +10,56 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController repeatPasswordController = TextEditingController();
+
+  void kayitOl() {
+    final name = nameController.text.trim();
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+    final repeatPassword = repeatPasswordController.text;
+
+    final isEmailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+    final isNameValid = RegExp(r'^[a-zA-ZçÇğĞıİöÖşŞüÜ0-9]+$').hasMatch(name);
+
+    if (name.isEmpty || email.isEmpty || password.isEmpty || repeatPassword.isEmpty) {
+      showError("Lütfen tüm alanları doldurun");
+    } else if (!isNameValid) {
+      showError("Ad Soyad sadece harf ve sayı içermelidir, boşluk ve özel karakter kullanmayın");
+    } else if (!isEmailValid) {
+      showError("Geçerli bir e-posta adresi giriniz");
+    } else if (password.length < 8) {
+      showError("Şifre en az 8 karakter olmalıdır");
+    } else if (password != repeatPassword) {
+      showError("Şifreler uyuşmuyor");
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Başarıyla kayıt olundu", style: GoogleFonts.ubuntu()),
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          showCloseIcon: true,
+        ),
+      );
+      Future.delayed(const Duration(seconds: 1), () {
+        context.go("/home");
+      });
+    }
+  }
+
+  void showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message, style: GoogleFonts.ubuntu()),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        showCloseIcon: true,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -22,6 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                controller: nameController,
                 style: GoogleFonts.ubuntu(),
                 decoration: InputDecoration(
                   hintText: "Ad Soyad",
@@ -33,8 +84,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icon(Icons.person, color: theme.colorScheme.primary),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               TextField(
+                controller: emailController,
                 style: GoogleFonts.ubuntu(),
                 decoration: InputDecoration(
                   hintText: "E-Posta",
@@ -46,8 +98,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icon(Icons.email, color: theme.colorScheme.primary),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               TextField(
+                controller: passwordController,
                 obscureText: true,
                 style: GoogleFonts.ubuntu(),
                 decoration: InputDecoration(
@@ -60,8 +113,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icon(Icons.lock, color: theme.colorScheme.primary),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               TextField(
+                controller: repeatPasswordController,
                 obscureText: true,
                 style: GoogleFonts.ubuntu(),
                 decoration: InputDecoration(
@@ -74,12 +128,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.primary),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 height: 45,
                 child: ElevatedButton(
-                  onPressed: () => context.push("/home"),
+                  onPressed: kayitOl,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primary,
                     shape: RoundedRectangleBorder(
@@ -90,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: GoogleFonts.ubuntu(fontSize: 16, color: theme.colorScheme.onPrimary)),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               SizedBox(
                 width: double.infinity,
                 height: 45,
@@ -111,5 +165,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
-        }
-      }
+  }
+}

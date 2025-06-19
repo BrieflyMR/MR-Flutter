@@ -14,42 +14,52 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController sifreYonetici = TextEditingController();
 
   girisYap() {
-  String email = epostaYonetici.text.trim();
-  String password = sifreYonetici.text;
+    String email = epostaYonetici.text.trim();
+    String password = sifreYonetici.text;
 
-  bool isValidEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+    bool isValidEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
 
-  if (email.isEmpty || password.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Bilgilerinizi Giriniz", style: GoogleFonts.ubuntu()),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        showCloseIcon: true,
-      ),
-    );
-  } else if (!isValidEmail) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Geçerli bir e-posta giriniz", style: GoogleFonts.ubuntu()),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        showCloseIcon: true,
-      ),
-    );
-  } else if (password.length < 8) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Şifreniz 8 karakterden kısa olamaz", style: GoogleFonts.ubuntu()),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        showCloseIcon: true,
-      ),
-    );
-  } else {
-    context.go("/home");
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Bilgilerinizi Giriniz", style: GoogleFonts.ubuntu()),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Theme.of(context).colorScheme.error,
+          showCloseIcon: true,
+        ),
+      );
+    } else if (!isValidEmail) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Geçerli bir e-posta giriniz", style: GoogleFonts.ubuntu()),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Theme.of(context).colorScheme.error,
+          showCloseIcon: true,
+        ),
+      );
+    } else if (password.length < 8) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Şifreniz 8 karakterden kısa olamaz", style: GoogleFonts.ubuntu()),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Theme.of(context).colorScheme.error,
+          showCloseIcon: true,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Başarıyla giriş yapıldı", style: GoogleFonts.ubuntu()),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.green,
+          showCloseIcon: true,
+        ),
+      );
+      Future.delayed(const Duration(seconds: 1), () {
+        context.go("/home");
+      });
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +117,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Text("Giriş Yap", 
-                    style: GoogleFonts.ubuntu(fontSize: 16, color: theme.colorScheme.onPrimary)),
+                  child: Text("Giriş Yap",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 16, color: theme.colorScheme.onPrimary)),
                 ),
               ),
               SizedBox(height: 15),
@@ -123,13 +134,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Text("Kayıt Ol", 
-                    style: GoogleFonts.ubuntu(fontSize: 16, color: theme.colorScheme.onSurface)),
+                  child: Text("Kayıt Ol",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 16, color: theme.colorScheme.onSurface)),
                 ),
               ),
               SizedBox(height: 20),
-              Text("veya", 
-                style: GoogleFonts.ubuntu(color: theme.colorScheme.onSurface.withOpacity(0.6))),
+              Text("veya",
+                  style:
+                      GoogleFonts.ubuntu(color: theme.colorScheme.onSurface.withOpacity(0.6))),
               SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -137,8 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: OutlinedButton.icon(
                   onPressed: () {},
                   icon: Icon(Icons.apple, color: theme.colorScheme.onSurface),
-                  label: Text("Apple ile devam et", 
-                    style: GoogleFonts.ubuntu(color: theme.colorScheme.onSurface)),
+                  label: Text("Apple ile devam et",
+                      style: GoogleFonts.ubuntu(color: theme.colorScheme.onSurface)),
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -152,9 +165,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 45,
                 child: OutlinedButton.icon(
                   onPressed: () {},
-                  icon: Icon(Icons.g_mobiledata, size: 30, color: theme.colorScheme.onSurface),
-                  label: Text("Google ile devam et", 
-                    style: GoogleFonts.ubuntu(color: theme.colorScheme.onSurface)),
+                  icon: Icon(Icons.g_mobiledata,
+                      size: 30, color: theme.colorScheme.onSurface),
+                  label: Text("Google ile devam et",
+                      style: GoogleFonts.ubuntu(color: theme.colorScheme.onSurface)),
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
