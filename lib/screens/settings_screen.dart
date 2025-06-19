@@ -27,12 +27,16 @@ Widget build(BuildContext context) {
         const SizedBox(height: 16),
 
         ListTile(
-          leading: const CircleAvatar(child: Icon(Icons.person)),
-          title: const Text('Profil Ayarları'),
-          subtitle: const Text('Hesap bilgilerini düzenle'),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: () => context.push('/profile'),
-        ),
+  leading: const CircleAvatar(
+    radius: 24,
+    backgroundImage: AssetImage('assets/images/profile.jpg'),
+  ),
+  title: const Text('Profil Ayarları'),
+  subtitle: const Text('Hesap bilgilerini düzenle'),
+  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+  onTap: () => context.push('/profile'),
+),
+
 
         const Divider(),
 
