@@ -16,6 +16,7 @@ class _ShopScreenState extends State<ShopScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   String _searchQuery = '';
+  bool _showFavoritesOnly = false;
   final Set<String> _favoriteTitles = {};
 
   final List<Map<String, String>> _allProducts = [
@@ -82,12 +83,23 @@ class _ShopScreenState extends State<ShopScreen> {
   ];
 
   List<Map<String, String>> get _filteredProducts {
-    if (_searchQuery.isEmpty) return _allProducts;
-    return _allProducts
-        .where((product) => product['baslik']!
-            .toLowerCase()
-            .contains(_searchQuery.toLowerCase()))
-        .toList();
+    List<Map<String, String>> filtered = _allProducts;
+
+    if (_showFavoritesOnly) {
+      filtered = filtered
+          .where((product) => _favoriteTitles.contains(product['baslik']))
+          .toList();
+    }
+
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered
+          .where((product) => product['baslik']!
+              .toLowerCase()
+              .contains(_searchQuery.toLowerCase()))
+          .toList();
+    }
+
+    return filtered;
   }
 
   @override
@@ -187,19 +199,59 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
         ],
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.75,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-        ),
-        itemCount: _filteredProducts.length,
-        itemBuilder: (context, index) {
-          final product = _filteredProducts[index];
-          return _buildProductCard(context, product);
-        },
+      body: Column(
+        children: [
+          if (!_isSearching)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        _showFavoritesOnly = !_showFavoritesOnly;
+                      });
+                    },
+                    icon: Icon(
+                      _showFavoritesOnly
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: theme.colorScheme.primary,
+                    ),
+                    label: Text(
+                      _showFavoritesOnly ? 'Tüm Ürünler' : 'Favoriler',
+                      style: GoogleFonts.ubuntu(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  if (_favoriteTitles.isNotEmpty)
+                    Text(
+                      '${_favoriteTitles.length} favori',
+                      style: GoogleFonts.ubuntu(fontSize: 14),
+                    ),
+                ],
+              ),
+            ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+              ),
+              itemCount: _filteredProducts.length,
+              itemBuilder: (context, index) {
+                final product = _filteredProducts[index];
+                return _buildProductCard(context, product);
+              },
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const BottomMenu(currentIndex: 2),
     );
@@ -220,7 +272,8 @@ class _ShopScreenState extends State<ShopScreen> {
           Expanded(
             flex: 3,
             child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(15)),
               child: Image.asset(
                 product['imageUrl'] ?? '',
                 fit: BoxFit.cover,
@@ -270,7 +323,9 @@ class _ShopScreenState extends State<ShopScreen> {
                         children: [
                           IconButton(
                             icon: Icon(
-                              isFavorite ? Icons.favorite : Icons.favorite_border,
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
                               color: isFavorite
                                   ? Colors.red
                                   : theme.colorScheme.primary,
