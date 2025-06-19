@@ -14,6 +14,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String? selectedCategory;
 
+  final Map<String, String> categoryEventDetails = {
+    'Doğum Günü': 'Doğum günü partilerinizi heyecanla ve arkadaşlarınızla kutlamaya ne dersiniz ?',
+    'Mezuniyet': 'Mezuniyet töreninizde tüm gözler sizin üzerinizde olsun.',
+    'İş': 'İş bazen de eğlenmektir.',
+    'Festival': 'Müzikle bu yazda eğlenmeye hazır mısın ?',
+    'Diğer1': 'Çocuğunun cinsiyetini öğrenmenin eğlenceli bir yolu.',
+    'Diğer2': 'Askere gitmeden önce sağlam bir gün geçirmeye ne dersin ?.',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,11 +156,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       selectedCategory = isSelected ? null : category;
                     });
                   },
-                  child: Card(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
                     margin: const EdgeInsets.only(right: 10),
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.surface,
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(0.4),
+                                blurRadius: 6,
+                                offset: const Offset(0, 3),
+                              )
+                            ]
+                          : [],
+                    ),
                     child: Container(
                       width: 100,
                       padding: const EdgeInsets.all(8),
@@ -210,8 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(
@@ -223,11 +248,41 @@ class _HomeScreenState extends State<HomeScreen> {
                   events[index],
                   style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
                 ),
-                subtitle:
-                    Text(eventDates[index], style: GoogleFonts.ubuntu()),
+                subtitle: Text(eventDates[index], style: GoogleFonts.ubuntu()),
                 trailing: IconButton(
                   icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: () {},
+                  onPressed: () {
+                    final detail = categoryEventDetails[eventCategories[index]] ??
+                        'Etkinlik detayları burada yer alacak.';
+
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20)),
+                      ),
+                      builder: (context) {
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(events[index],
+                                  style: GoogleFonts.ubuntu(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 10),
+                              Text('Tarih: ${eventDates[index]}',
+                                  style: GoogleFonts.ubuntu()),
+                              const SizedBox(height: 10),
+                              Text(detail, style: GoogleFonts.ubuntu()),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             );
@@ -257,24 +312,31 @@ final List<String> events = [
   'Yaz Festivali',
   'Doğum Günü Partisi',
   'İş Kutlaması',
-  'Mezuniyet'
+  'Mezuniyet',
+  'Cinsiyet Partisi',
+  'Asker Uğurlaması'
 ];
 final List<String> eventDates = [
   '15 Temmuz • İstanbul',
   '20 Temmuz • Ankara',
   '25 Temmuz • İzmir',
-  '30 Temmuz • Bursa'
+  '30 Temmuz • Bursa',
+  '5 Ağustos • Antalya',
+  '10 Ağustos • Samsun'
 ];
 final List<String> eventCategories = [
   'Festival',
   'Doğum Günü',
   'İş',
   'Mezuniyet',
-  'Diğer'
+  'Diğer1',
+  'Diğer2'
 ];
 final List<IconData> eventIcons = [
   Icons.music_note,
   Icons.cake,
   Icons.work,
-  Icons.school
+  Icons.school,
+  Icons.child_friendly,
+  Icons.military_tech
 ];

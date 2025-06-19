@@ -12,7 +12,7 @@ import '../screens/shop_screen.dart';
 import '../screens/shopping_card.dart';
 
 final router = GoRouter(
-  initialLocation: '/',  
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -23,7 +23,7 @@ final router = GoRouter(
     GoRoute(
       path: '/home',
       pageBuilder: (context, state) => NoTransitionPage(
-        child:  HomeScreen(),
+        child: HomeScreen(),
       ),
     ),
     GoRoute(
