@@ -5,92 +5,139 @@ import '../widgets/bottom_menu.dart';
 import 'shopping_card.dart';
 import '../providers/cart_provider.dart';
 
-class ShopScreen extends StatelessWidget {
+class ShopScreen extends StatefulWidget {
   const ShopScreen({super.key});
+
+  @override
+  State<ShopScreen> createState() => _ShopScreenState();
+}
+
+class _ShopScreenState extends State<ShopScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  bool _isSearching = false;
+  String _searchQuery = '';
+
+  final List<Map<String, String>> _allProducts = [
+    {
+      'baslik': 'Doğum Günü Balonları',
+      'fiyat': '49.99',
+      'degerlendirme': '4.5',
+      'imageUrl': 'assets/images/doğumgünübalonları.jpg',
+    },
+    {
+      'baslik': 'Doğum Günü Şapkaları',
+      'fiyat': '29.99',
+      'degerlendirme': '4.3',
+      'imageUrl': 'assets/images/doğumgünüşapkaları.jpg',
+    },
+    {
+      'baslik': 'Konfeti Seti',
+      'fiyat': '19.99',
+      'degerlendirme': '4.2',
+      'imageUrl': 'assets/images/konfeti.jpg',
+    },
+    {
+      'baslik': 'Yılbaşı Süsü',
+      'fiyat': '39.99',
+      'degerlendirme': '4.6',
+      'imageUrl': 'assets/images/yilbaşisüsü.jpg',
+    },
+    {
+      'baslik': 'Parti Gözlüğü',
+      'fiyat': '24.99',
+      'degerlendirme': '4.1',
+      'imageUrl': 'assets/images/partigözlüğü.jpg',
+    },
+    {
+      'baslik': 'Neon Işıklar',
+      'fiyat': '59.99',
+      'degerlendirme': '4.8',
+      'imageUrl': 'assets/images/neonışıklar.jpg',
+    },
+    {
+      'baslik': 'Yılbaşı Şapkası',
+      'fiyat': '34.99',
+      'degerlendirme': '4.4',
+      'imageUrl': 'assets/images/yılbaşışapkası.png',
+    },
+    {
+      'baslik': 'Parti Düdüğü',
+      'fiyat': '14.99',
+      'degerlendirme': '4.0',
+      'imageUrl': 'assets/images/partidüdüğü.jpg',
+    },
+    {
+      'baslik': 'Hediye Kutusu',
+      'fiyat': '64.99',
+      'degerlendirme': '4.7',
+      'imageUrl': 'assets/images/hediyekutusu.jpg',
+    },
+    {
+      'baslik': 'Parti Balonları',
+      'fiyat': '44.99',
+      'degerlendirme': '4.5',
+      'imageUrl': 'assets/images/partibalonları.jpg',
+    },
+  ];
+
+  List<Map<String, String>> get _filteredProducts {
+    if (_searchQuery.isEmpty) return _allProducts;
+    return _allProducts
+        .where((product) => product['baslik']!
+            .toLowerCase()
+            .contains(_searchQuery.toLowerCase()))
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final products = [
-      {
-        'baslik': 'Doğum Günü Balonları',
-        'fiyat': '49.99',
-        'degerlendirme': '4.5',
-        'imageUrl': 'assets/images/doğumgünübalonları.jpg',
-      },
-      {
-        'baslik': 'Doğum Günü Şapkaları',
-        'fiyat': '29.99',
-        'degerlendirme': '4.3',
-        'imageUrl': 'assets/images/doğumgünüşapkaları.jpg',
-      },
-      {
-        'baslik': 'Konfeti Seti',
-        'fiyat': '19.99',
-        'degerlendirme': '4.2',
-        'imageUrl': 'assets/images/konfeti.jpg',
-      },
-      {
-        'baslik': 'Yılbaşı Süsü',
-        'fiyat': '39.99',
-        'degerlendirme': '4.6',
-        'imageUrl': 'assets/images/yilbaşisüsü.jpg',
-      },
-      {
-        'baslik': 'Parti Gözlüğü',
-        'fiyat': '24.99',
-        'degerlendirme': '4.1',
-        'imageUrl': 'assets/images/partigözlüğü.jpg',
-      },
-      {
-        'baslik': 'Neon Işıklar',
-        'fiyat': '59.99',
-        'degerlendirme': '4.8',
-        'imageUrl': 'assets/images/neonışıklar.jpg',
-      },
-      {
-        'baslik': 'Yılbaşı Şapkası',
-        'fiyat': '34.99',
-        'degerlendirme': '4.4',
-        'imageUrl': 'assets/images/yılbaşışapkası.png',
-      },
-      {
-        'baslik': 'Parti Düdüğü',
-        'fiyat': '14.99',
-        'degerlendirme': '4.0',
-        'imageUrl': 'assets/images/partidüdüğü.jpg',
-      },
-      {
-        'baslik': 'Hediye Kutusu',
-        'fiyat': '64.99',
-        'degerlendirme': '4.7',
-        'imageUrl': 'assets/images/hediyekutusu.jpg',
-      },
-      {
-        'baslik': 'Parti Balonları',
-        'fiyat': '44.99',
-        'degerlendirme': '4.5',
-        'imageUrl': 'assets/images/partibalonları.jpg',
-      },
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Mağaza',
-          style: GoogleFonts.ubuntu(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            color: theme.colorScheme.onSurface,
-          ),
-        ),
+        title: _isSearching
+            ? TextField(
+                controller: _searchController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: 'Ürün ara...',
+                  border: InputBorder.none,
+                ),
+                style: GoogleFonts.ubuntu(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
+              )
+            : Text(
+                'Mağaza',
+                style: GoogleFonts.ubuntu(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
         elevation: 0,
         backgroundColor: theme.colorScheme.surface,
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: theme.colorScheme.primary),
-            onPressed: () {},
+            icon: Icon(
+              _isSearching ? Icons.close : Icons.search,
+              color: theme.colorScheme.primary,
+            ),
+            onPressed: () {
+              setState(() {
+                if (_isSearching) {
+                  _searchController.clear();
+                  _searchQuery = '';
+                }
+                _isSearching = !_isSearching;
+              });
+            },
           ),
           Consumer<CartProvider>(
             builder: (context, cart, child) {
@@ -103,7 +150,8 @@ class ShopScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ShoppingCard()),
+                          builder: (context) => const ShoppingCard(),
+                        ),
                       );
                     },
                   ),
@@ -146,9 +194,9 @@ class ShopScreen extends StatelessWidget {
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),
-        itemCount: products.length,
+        itemCount: _filteredProducts.length,
         itemBuilder: (context, index) {
-          final product = products[index];
+          final product = _filteredProducts[index];
           return _buildProductCard(context, product);
         },
       ),
@@ -169,31 +217,17 @@ class ShopScreen extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(15)),
-                gradient: LinearGradient(
-                  colors: [
-                    theme.colorScheme.primary.withOpacity(0.1),
-                    theme.colorScheme.secondary.withOpacity(0.1),
-                  ],
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(15)),
-                child: Image.asset(
-                  product['imageUrl'],
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+              child: Image.asset(
+                product['imageUrl'],
+                fit: BoxFit.cover,
+                width: double.infinity,
               ),
             ),
           ),
           Flexible(
             flex: 2,
-            fit: FlexFit.loose,
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
