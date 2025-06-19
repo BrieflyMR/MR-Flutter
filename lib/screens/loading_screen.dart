@@ -27,7 +27,7 @@ class LoadingScreen extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () => context.go("/home"),
+              onTap: () => context.go("/login"),
               child: SizedBox(
                 width: 600,
                 child: DotLottieLoader.fromAsset("assets/motions/loading3.lottie",
