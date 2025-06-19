@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/shopping_card.dart';
+import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/bottom_menu.dart';
+import 'shopping_card.dart';
+import '../providers/cart_provider.dart';
 
 class ShopScreen extends StatelessWidget {
   const ShopScreen({super.key});
@@ -90,81 +92,75 @@ class ShopScreen extends StatelessWidget {
             icon: Icon(Icons.search, color: theme.colorScheme.primary),
             onPressed: () {},
           ),
-          IconButton(
-            icon: Icon(Icons.shopping_cart_outlined, color: theme.colorScheme.primary),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ShoppingCard()),
+          Consumer<CartProvider>(
+            builder: (context, cart, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart_outlined,
+                        color: theme.colorScheme.primary),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ShoppingCard()),
+                      );
+                    },
+                  ),
+                  if (cart.itemCount > 0)
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 20,
+                          minHeight: 20,
+                        ),
+                        child: Text(
+                          cart.itemCount.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                ],
               );
             },
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            color: theme.colorScheme.surface,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  _buildFilterChip(context, 'Tümü', true),
-                  _buildFilterChip(context, 'Doğum Günü', false),
-                  _buildFilterChip(context, 'Yılbaşı', false),
-                  _buildFilterChip(context, 'Yeni Ürünler', false),
-                  _buildFilterChip(context, 'İndirimli', false),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.75,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                final product = products[index];
-                return _buildProductCard(context, product);
-              },
-            ),
-          ),
-        ],
+      body: GridView.builder(
+        padding: const EdgeInsets.all(16),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.75,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          final product = products[index];
+          return _buildProductCard(context, product);
+        },
       ),
       bottomNavigationBar: const BottomMenu(currentIndex: 2),
     );
   }
 
-  Widget _buildFilterChip(BuildContext context, String label, bool isSelected) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: FilterChip(
-        label: Text(label, style: GoogleFonts.ubuntu()),
-        selected: isSelected,
-        onSelected: (_) {},
-        backgroundColor: theme.colorScheme.surface,
-        selectedColor: theme.colorScheme.primary.withOpacity(0.2),
-        labelStyle: GoogleFonts.ubuntu(
-          color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface,
-          fontWeight: FontWeight.w500,
-        ),
-        side: BorderSide(
-          color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.2),
-        ),
-      ),
-    );
-  }
-
   Widget _buildProductCard(BuildContext context, Map product) {
     final theme = Theme.of(context);
+    final cart = Provider.of<CartProvider>(context, listen: false);
+    final price = double.tryParse(product['fiyat']) ?? 0.0;
+
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -175,7 +171,8 @@ class ShopScreen extends StatelessWidget {
             flex: 3,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(15)),
                 gradient: LinearGradient(
                   colors: [
                     theme.colorScheme.primary.withOpacity(0.1),
@@ -184,8 +181,9 @@ class ShopScreen extends StatelessWidget {
                 ),
               ),
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                child: Image.network(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(15)),
+                child: Image.asset(
                   product['imageUrl'],
                   fit: BoxFit.cover,
                   width: double.infinity,
@@ -212,7 +210,7 @@ class ShopScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '₺${product['fiyat']}',
+                    '₺${price.toStringAsFixed(2)}',
                     style: GoogleFonts.ubuntu(
                       fontSize: theme.textTheme.titleLarge?.fontSize,
                       color: theme.colorScheme.primary,
@@ -225,14 +223,25 @@ class ShopScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.star, size: 16, color: theme.colorScheme.secondary),
+                          Icon(Icons.star,
+                              size: 16, color: theme.colorScheme.secondary),
                           const SizedBox(width: 4),
-                          Text(product['degerlendirme'], style: GoogleFonts.ubuntu()),
+                          Text(product['degerlendirme'],
+                              style: GoogleFonts.ubuntu()),
                         ],
                       ),
                       IconButton(
-                        icon: Icon(Icons.add_shopping_cart, color: theme.colorScheme.primary),
-                        onPressed: () {},
+                        icon: Icon(Icons.add_shopping_cart,
+                            color: theme.colorScheme.primary),
+                        onPressed: () {
+                          cart.addItem(product['baslik'], price);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${product['baslik']} sepete eklendi!'),
+                              duration: const Duration(seconds: 1),
+                            ),
+                          );
+                        },
                         iconSize: 20,
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),

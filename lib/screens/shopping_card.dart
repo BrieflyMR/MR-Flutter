@@ -1,58 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../providers/cart_provider.dart';
 
-class ShoppingCard extends StatefulWidget {
+class ShoppingCard extends StatelessWidget {
   const ShoppingCard({super.key});
 
   @override
-  State<ShoppingCard> createState() => _ShoppingCardState();
-}
-
-class _ShoppingCardState extends State<ShoppingCard> {
-  final List<CartItem> _items = [
-    CartItem(name: 'Parti Malzemesi 1', price: 99.99, quantity: 1),
-    CartItem(name: 'Parti Malzemesi 2', price: 199.99, quantity: 2),
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    double total = _items.fold(0, (sum, item) => sum + (item.price * item.quantity));
-
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: theme.colorScheme.primary,
-        title: Text(
-          'Sepetim',
-          style: GoogleFonts.ubuntu(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            color: theme.colorScheme.onPrimary,
-          ),
-        ),
-        elevation: 0,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: _items.length,
-              itemBuilder: (context, index) => _buildCartItem(_items[index]),
+    return Consumer<CartProvider>(
+      builder: (context, cart, child) {
+        if (cart.items.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(
+              leading: BackButton(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              title: Text(
+                'Sepetim',
+                style: GoogleFonts.ubuntu(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
+              elevation: 0,
             ),
+            body: const Center(
+              child: Text('Sepetiniz boş'),
+            ),
+          );
+        }
+
+        final theme = Theme.of(context);
+        
+        return Scaffold(
+          appBar: AppBar(
+            leading: BackButton(color: theme.colorScheme.onPrimary),
+            backgroundColor: theme.colorScheme.primary,
+            title: Text(
+              'Sepetim',
+              style: GoogleFonts.ubuntu(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: theme.colorScheme.onPrimary,
+              ),
+            ),
+            elevation: 0,
           ),
-          _buildCheckoutSection(total, theme),
-        ],
-      ),
+          body: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: cart.items.length,
+                  itemBuilder: (context, index) {
+                    final item = cart.items[index];
+                    return _buildCartItem(context, item, cart);
+                  },
+                ),
+              ),
+              _buildCheckoutSection(context, cart.totalPrice, theme, cart),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildCartItem(CartItem item) {
+  Widget _buildCartItem(BuildContext context, CartItem item, CartProvider cart) {
     final theme = Theme.of(context);
+    
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       color: theme.colorScheme.surface,
@@ -88,7 +107,7 @@ class _ShoppingCardState extends State<ShoppingCard> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '₺${item.price}',
+                    '₺${item.price.toStringAsFixed(2)}',
                     style: GoogleFonts.ubuntu(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -102,7 +121,7 @@ class _ShoppingCardState extends State<ShoppingCard> {
               children: [
                 IconButton(
                   icon: Icon(Icons.remove, color: theme.colorScheme.primary),
-                  onPressed: () => _updateQuantity(item, false),
+                  onPressed: () => cart.decreaseQuantity(item.name),
                 ),
                 Text(
                   '${item.quantity}',
@@ -112,7 +131,7 @@ class _ShoppingCardState extends State<ShoppingCard> {
                 ),
                 IconButton(
                   icon: Icon(Icons.add, color: theme.colorScheme.primary),
-                  onPressed: () => _updateQuantity(item, true),
+                  onPressed: () => cart.increaseQuantity(item.name),
                 ),
               ],
             ),
@@ -122,7 +141,12 @@ class _ShoppingCardState extends State<ShoppingCard> {
     );
   }
 
-  Widget _buildCheckoutSection(double total, ThemeData theme) {
+  Widget _buildCheckoutSection(
+    BuildContext context,
+    double total,
+    ThemeData theme,
+    CartProvider cart,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -164,7 +188,12 @@ class _ShoppingCardState extends State<ShoppingCard> {
             width: double.infinity,
             height: 56,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Satın alma işlemi tamamlandı!')),
+                );
+                cart.clear();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.primary,
                 foregroundColor: theme.colorScheme.onPrimary,
@@ -185,26 +214,4 @@ class _ShoppingCardState extends State<ShoppingCard> {
       ),
     );
   }
-
-  void _updateQuantity(CartItem item, bool increase) {
-    setState(() {
-      if (increase) {
-        item.quantity++;
-      } else if (item.quantity > 1) {
-        item.quantity--;
-      }
-    });
-  }
-}
-
-class CartItem {
-  final String name;
-  final double price;
-  int quantity;
-
-  CartItem({
-    required this.name,
-    required this.price,
-    required this.quantity,
-  });
 }

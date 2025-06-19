@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Provider için gerekli
-import 'package:flutter_app/core/themes.dart'; // Tema dosyası
-import 'core/routes.dart'; // Rota dosyası
+import 'package:provider/provider.dart'; 
+import 'package:flutter_app/core/themes.dart'; 
+import 'core/routes.dart'; 
+import 'providers/cart_provider.dart';
 
-// Tema yönetimi için Provider sınıfı
+
 class ThemeProvider extends ChangeNotifier {
   bool _isDark = false;
 
@@ -16,10 +17,13 @@ class ThemeProvider extends ChangeNotifier {
 }
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized(); // Flutter widget'larını başlat
+  WidgetsFlutterBinding.ensureInitialized(); 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(), // ThemeProvider'ı global olarak tanımlıyoruz
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()), 
+        ChangeNotifierProvider(create: (_) => CartProvider()),  
+      ],
       child: const MyApp(),
     ),
   );
@@ -30,15 +34,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = context.watch<ThemeProvider>(); // Tema durumunu dinliyoruz
+    final themeProvider = context.watch<ThemeProvider>(); 
 
     return MaterialApp.router(
       title: 'Flutter App',
-      themeMode: themeProvider.isDark ? ThemeMode.dark : ThemeMode.light, // Tema modu
-      theme: lightTheme, // Açık tema
-      darkTheme: darkTheme, // Karanlık tema
-      routerConfig: router, // go_router yapılandırmamızı kullan
-      debugShowCheckedModeBanner: false, // Debug bandını kaldır
+      themeMode: themeProvider.isDark ? ThemeMode.dark : ThemeMode.light, 
+      theme: lightTheme,
+      darkTheme: darkTheme, 
+      routerConfig: router, 
+      debugShowCheckedModeBanner: false, 
     );
   }
 }
