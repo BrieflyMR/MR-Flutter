@@ -59,30 +59,30 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                    child: Icon(Icons.person, size: 40,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Partyverse',
-                    style: GoogleFonts.ubuntu(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+  decoration: BoxDecoration(
+    color: Theme.of(context).colorScheme.onSurface,
+  ),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const CircleAvatar(
+        radius: 40,
+        backgroundImage: AssetImage('assets/images/profile.jpg'),
+        backgroundColor: Colors.transparent,  
+      ),
+      const SizedBox(height: 10),
+      Text(
+        'Partyverse',
+        style: GoogleFonts.ubuntu(
+          color: Theme.of(context).colorScheme.onPrimary,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    ],
+  ),
+),
+
             ListTile(
               leading: const Icon(Icons.home_outlined),
               title: Text('Ana Sayfa', style: GoogleFonts.ubuntu()),
@@ -110,28 +110,70 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           Container(
-            height: 200,
-            margin: const EdgeInsets.only(bottom: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.secondary,
+  height: 200,
+  margin: const EdgeInsets.only(bottom: 20),
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(15),
+    gradient: const LinearGradient(
+      colors: [
+        Color.fromRGBO(186, 85, 211, 0.7),  
+        Color.fromRGBO(165, 42, 120, 0.5),  
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+  ),
+  child: Stack(
+    children: [
+      ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Opacity(
+          opacity: 0.3,
+          child: Image.asset(
+            'assets/images/mezuniyet.jpg',  
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Mezuniyet Partisi',
+              style: GoogleFonts.ubuntu(
+                fontSize: 28,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withOpacity(0.7),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
+                  ),
                 ],
               ),
             ),
-            child: Center(
-              child: Text(
-                '🎉 Yakındaki Partiler',
-                style: GoogleFonts.ubuntu(
-                  fontSize: 24,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                ),
+            const SizedBox(height: 10),
+            Text(
+              '2-3 Temmuz • İstanbul',
+              style: GoogleFonts.ubuntu(
+                fontSize: 18,
+                color: Colors.white70,
+                fontWeight: FontWeight.w500,
               ),
             ),
-          ),
+          ],
+        ),
+      ),
+    ],
+  ),
+),
+
+
+
           Text(
             'Kategoriler',
             style: GoogleFonts.ubuntu(
@@ -223,9 +265,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 10),
           ...List.generate(events.length, (index) {
-            if (selectedCategory != null &&
-                eventCategories[index] != selectedCategory) {
-              return const SizedBox.shrink();
+            // Diğer kategorisi seçildiyse diğer1 ve diğer2 eventlerini göster
+            if (selectedCategory != null) {
+              if (selectedCategory == 'Diğer') {
+                if (!eventCategories[index].toLowerCase().startsWith('diğer')) {
+                  return const SizedBox.shrink();
+                }
+              } else if (eventCategories[index] != selectedCategory) {
+                return const SizedBox.shrink();
+              }
             }
             return Card(
               margin: const EdgeInsets.only(bottom: 10),
@@ -309,15 +357,15 @@ final List<IconData> categoryIcons = [
   Icons.more_horiz
 ];
 final List<String> events = [
-  'Yaz Festivali',
+  'Mezuniyet',
   'Doğum Günü Partisi',
   'İş Kutlaması',
-  'Mezuniyet',
+  'Yaz Festivali',
   'Cinsiyet Partisi',
   'Asker Uğurlaması'
 ];
 final List<String> eventDates = [
-  '15 Temmuz • İstanbul',
+  '2-3 Temmuz • İstanbul',
   '20 Temmuz • Ankara',
   '25 Temmuz • İzmir',
   '30 Temmuz • Bursa',
@@ -325,18 +373,18 @@ final List<String> eventDates = [
   '10 Ağustos • Samsun'
 ];
 final List<String> eventCategories = [
-  'Festival',
+  'Mezuniyet',
   'Doğum Günü',
   'İş',
-  'Mezuniyet',
+  'Festival',  
   'Diğer1',
   'Diğer2'
 ];
 final List<IconData> eventIcons = [
-  Icons.music_note,
+  Icons.school,
   Icons.cake,
   Icons.work,
-  Icons.school,
+  Icons.music_note,  
   Icons.child_friendly,
   Icons.military_tech
 ];
