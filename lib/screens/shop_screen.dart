@@ -16,6 +16,7 @@ class _ShopScreenState extends State<ShopScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   String _searchQuery = '';
+  final Set<String> _favoriteTitles = {};
 
   final List<Map<String, String>> _allProducts = [
     {
@@ -204,10 +205,11 @@ class _ShopScreenState extends State<ShopScreen> {
     );
   }
 
-  Widget _buildProductCard(BuildContext context, Map product) {
+  Widget _buildProductCard(BuildContext context, Map<String, String> product) {
     final theme = Theme.of(context);
     final cart = Provider.of<CartProvider>(context, listen: false);
-    final price = double.tryParse(product['fiyat']) ?? 0.0;
+    final price = double.tryParse(product['fiyat'] ?? '') ?? 0.0;
+    final isFavorite = _favoriteTitles.contains(product['baslik']);
 
     return Card(
       elevation: 2,
@@ -220,7 +222,7 @@ class _ShopScreenState extends State<ShopScreen> {
             child: ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
               child: Image.asset(
-                product['imageUrl'],
+                product['imageUrl'] ?? '',
                 fit: BoxFit.cover,
                 width: double.infinity,
               ),
@@ -234,7 +236,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product['baslik'],
+                    product['baslik'] ?? '',
                     style: GoogleFonts.ubuntu(
                       fontSize: theme.textTheme.titleMedium?.fontSize,
                       fontWeight: FontWeight.bold,
@@ -260,25 +262,50 @@ class _ShopScreenState extends State<ShopScreen> {
                           Icon(Icons.star,
                               size: 16, color: theme.colorScheme.secondary),
                           const SizedBox(width: 4),
-                          Text(product['degerlendirme'],
+                          Text(product['degerlendirme'] ?? '',
                               style: GoogleFonts.ubuntu()),
                         ],
                       ),
-                      IconButton(
-                        icon: Icon(Icons.add_shopping_cart,
-                            color: theme.colorScheme.primary),
-                        onPressed: () {
-                          cart.addItem(product['baslik'], price);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('${product['baslik']} sepete eklendi!'),
-                              duration: const Duration(seconds: 1),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              isFavorite ? Icons.favorite : Icons.favorite_border,
+                              color: isFavorite
+                                  ? Colors.red
+                                  : theme.colorScheme.primary,
                             ),
-                          );
-                        },
-                        iconSize: 20,
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
+                            onPressed: () {
+                              setState(() {
+                                if (isFavorite) {
+                                  _favoriteTitles.remove(product['baslik']);
+                                } else {
+                                  _favoriteTitles.add(product['baslik']!);
+                                }
+                              });
+                            },
+                            iconSize: 20,
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.add_shopping_cart,
+                                color: theme.colorScheme.primary),
+                            onPressed: () {
+                              cart.addItem(product['baslik']!, price);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      '${product['baslik']} sepete eklendi!'),
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                            },
+                            iconSize: 20,
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                          ),
+                        ],
                       ),
                     ],
                   ),
