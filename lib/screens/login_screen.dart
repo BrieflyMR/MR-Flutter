@@ -14,30 +14,42 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController sifreYonetici = TextEditingController();
 
   girisYap() {
-    if (epostaYonetici.text.isEmpty || sifreYonetici.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Bilgilerinizi Giriniz", style: GoogleFonts.ubuntu()),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Theme.of(context).colorScheme.error,
-          showCloseIcon: true,
-        ),
-      );
-    } else {
-      if(sifreYonetici.text.length < 8) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Sifreniz 8 Karakterden Kisa olamaz", style: GoogleFonts.ubuntu()),
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Theme.of(context).colorScheme.error,
-            showCloseIcon: true,
-          ),
-        );
-      } else {
-        context.go("/home");
-      }
-    }
+  String email = epostaYonetici.text.trim();
+  String password = sifreYonetici.text;
+
+  bool isValidEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+
+  if (email.isEmpty || password.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Bilgilerinizi Giriniz", style: GoogleFonts.ubuntu()),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        showCloseIcon: true,
+      ),
+    );
+  } else if (!isValidEmail) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Geçerli bir e-posta giriniz", style: GoogleFonts.ubuntu()),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        showCloseIcon: true,
+      ),
+    );
+  } else if (password.length < 8) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Şifreniz 8 karakterden kısa olamaz", style: GoogleFonts.ubuntu()),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        showCloseIcon: true,
+      ),
+    );
+  } else {
+    context.go("/home");
   }
+}
 
   @override
   Widget build(BuildContext context) {
