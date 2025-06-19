@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             DrawerHeader(
   decoration: BoxDecoration(
-    color: Theme.of(context).colorScheme.onSurface,
+    color: Theme.of(context).colorScheme.primary,
   ),
   child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -265,7 +265,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 10),
           ...List.generate(events.length, (index) {
-            // Diğer kategorisi seçildiyse diğer1 ve diğer2 eventlerini göster
             if (selectedCategory != null) {
               if (selectedCategory == 'Diğer') {
                 if (!eventCategories[index].toLowerCase().startsWith('diğer')) {
@@ -337,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }),
         ],
       ),
-      bottomNavigationBar: const BottomMenu(),
+      bottomNavigationBar: const BottomMenu(currentIndex: 0),
     );
   }
 }

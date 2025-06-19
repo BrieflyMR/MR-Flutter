@@ -40,11 +40,11 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            Center(
+            const Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundColor: theme.colorScheme.primary,
-                child: Icon(Icons.person, size: 50, color: theme.colorScheme.onPrimary),
+                backgroundImage: AssetImage('assets/images/profile.jpg'),
+                backgroundColor: Colors.transparent,
               ),
             ),
             const SizedBox(height: 20),
@@ -92,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomMenu(),
+      bottomNavigationBar: const BottomMenu(currentIndex: 3),
     );
   }
 }
