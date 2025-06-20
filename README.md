@@ -82,7 +82,7 @@ lib/
 --- 
 ## Demo Videosu
 
-[(assets/demovideo/DemoVideosu2.mp4)](https://github.com/user-attachments/assets/47cd4680-d6aa-4b7a-9841-ec578798f80c)
+[(assets/demovideo/DemoVideosu2.mp4)](https://streamable.com/tf52wb)
 
 ---  
 
