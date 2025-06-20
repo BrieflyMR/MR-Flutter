@@ -65,16 +65,17 @@ lib/
 --- 
 
 #### **Ekran Görüntüleri**  
-![Ekran Görüntüsü 1](assets/screenshots/AçılışEkranı.png)
-![Ekran Görüntüsü 2](assets/screenshots/KayıtEkranı.png)
-![Ekran Görüntüsü 3](assets/screenshots/GirişEkranı.png)
-![Ekran Görüntüsü 4](assets/screenshots/AnaEkran.png)
-![Ekran Görüntüsü 5](assets/screenshots/AyarlarEkranı.png)
-![Ekran Görüntüsü 6](assets/screenshots/BildirimEkranı.png)
-![Ekran Görüntüsü 7](assets/screenshots/AramaEkranı.png)
-![Ekran Görüntüsü 8](assets/screenshots/AlışverişEkranı.png)
-![Ekran Görüntüsü 9](assets/screenshots/ProfilEkranı.png)
-![Ekran Görüntüsü 10](assets/screenshots/SepetEkranı.png)
+![Ekran Görüntüsü 1](assets/screenshots/AçılışEkranı2.png)
+![Ekran Görüntüsü 2](assets/screenshots/KayıtEkranı2.png)
+![Ekran Görüntüsü 3](assets/screenshots/GirişEkranı2.png)
+![Ekran Görüntüsü 4](assets/screenshots/AnaEkran2.png)
+![Ekran Görüntüsü 10](assets/screenshots/AçılırYanEkran.png)
+![Ekran Görüntüsü 5](assets/screenshots/AyarlarEkranı2.png)
+![Ekran Görüntüsü 6](assets/screenshots/BildirimEkranı2.png)
+![Ekran Görüntüsü 7](assets/screenshots/AramaEkranı2.png)
+![Ekran Görüntüsü 8](assets/screenshots/AlışverişEkranı2.png)
+![Ekran Görüntüsü 10](assets/screenshots/SepetEkranı2.png)
+![Ekran Görüntüsü 9](assets/screenshots/ProfilEkranı2.png)
 
 --- 
 
